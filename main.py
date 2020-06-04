@@ -1,9 +1,10 @@
 import os
 import pickle
 import pandas as pd
-from stable_baselines.common.policies import MlpPolicy
-from stable_baselines.common.vec_env import DummyVecEnv
-from stable_baselines import PPO2
+#from stable_baselines3.common.policies import MlpPolicy
+from stable_baselines3 import PPO
+from stable_baselines3.common.vec_env import DummyVecEnv
+#from stable_baselines3 import PPO2
 from rlenv.StockTradingEnv0 import StockTradingEnv
 
 import numpy as np
@@ -22,8 +23,8 @@ def stock_trade(stock_file):
 
     # The algorithms require a vectorized environment to run
     env = DummyVecEnv([lambda: StockTradingEnv(df)])
-
-    model = PPO2(MlpPolicy, env, verbose=0, tensorboard_log='./log')
+    #model = PPO2(MlpPolicy, env, verbose=0, tensorboard_log='./log')
+    model = PPO('MlpPolicy', env, verbose=0, tensorboard_log='./log')
     model.learn(total_timesteps=int(1e4))
 
     df_test = pd.read_csv(stock_file.replace('train', 'test'))
@@ -72,6 +73,7 @@ def multi_stock_trade():
         stock_file = find_file('./stockdata/train', str(code))
         if stock_file:
             try:
+                print(stock_file)
                 profits = stock_trade(stock_file)
                 group_result.append(profits)
             except Exception as err:
@@ -82,8 +84,8 @@ def multi_stock_trade():
 
 
 if __name__ == '__main__':
-    # multi_stock_trade()
-    test_a_stock_trade('sh.600036')
-    # ret = find_file('./stockdata/train', '600036')
+    multi_stock_trade()
+    #test_a_stock_trade('sh.600036')
+    #ret = find_file('./stockdata/train', '600036')
     # print(ret)
 

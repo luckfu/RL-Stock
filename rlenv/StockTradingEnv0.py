@@ -146,8 +146,8 @@ class StockTradingEnv(gym.Env):
         print('-'*30)
         print(f'Step: {self.current_step}')
         print(f'Balance: {self.balance}')
-        print(f'Shares held: {self.shares_held} (Total sold: {self.total_shares_sold})')
-        print(f'Avg cost for held shares: {self.cost_basis} (Total sales value: {self.total_sales_value})')
-        print(f'Net worth: {self.net_worth} (Max net worth: {self.max_net_worth})')
-        print(f'Profit: {profit}')
+        print(f'持有股份 Shares held: {self.shares_held} (Total sold: {self.total_shares_sold})')
+        print(f'持股平均成本 Avg cost for held shares: {self.cost_basis} (Total sales value: {self.total_sales_value})')
+        print(f'净值 Net worth: {self.net_worth} (Max net worth: {self.max_net_worth})')
+        print(f'利润 Profit: {profit}')
         return profit
